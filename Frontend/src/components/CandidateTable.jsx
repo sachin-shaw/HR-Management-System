@@ -8,7 +8,7 @@ function CandidateTable() {
   // Function to fetch candidates
   const fetchCandidates = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/candidates");
+      const response = await axios.get("https://psquare-assessment.onrender.com/api/candidates");
       const data = response.data.data;
 
       const formatted = data.map((c, index) => ({
