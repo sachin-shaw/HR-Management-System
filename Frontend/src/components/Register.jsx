@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import "./Login.css"; // Reusing same styles for layout
+import { useNavigate, Link } from "react-router-dom"; // ✅ Added
+import "./Login.css";
 import dashboardImage from "../assets/Rectangle77.png";
 import axios from "axios";
 
 function Register() {
+  const navigate = useNavigate(); // ✅ Initialize navigate
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -22,7 +25,6 @@ function Register() {
     e.preventDefault();
     setError("");
 
-    // Client-side password match check
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match");
       return;
@@ -41,8 +43,7 @@ function Register() {
       );
 
       console.log("Registration successful", response.data);
-      // Handle redirect or success notification
-      navigate("/login");
+      navigate("/login"); // ✅ Redirect after successful registration
     } catch (err) {
       console.error("Registration failed", err.response?.data || err.message);
       setError(
@@ -73,7 +74,7 @@ function Register() {
             eiusmod
           </h2>
           <p>
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            Tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
             veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
             ea commodo consequat.
           </p>
@@ -84,6 +85,7 @@ function Register() {
           </div>
         </div>
       </div>
+
       <div className="right-section">
         <div className="welcome-container">
           <h1>Create an Account</h1>
@@ -149,11 +151,12 @@ function Register() {
               </button>
             </div>
           </form>
+
           <div className="register-link">
             Already have an account?{" "}
-            <a href="#" className="register-button">
+            <Link to="/login" className="register-button">
               Login
-            </a>
+            </Link>
           </div>
         </div>
       </div>
