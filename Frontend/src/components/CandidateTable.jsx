@@ -84,7 +84,7 @@ function CandidateTable() {
               </svg>
               <div className="actions-dropdown">
                 <a
-                  href={`http://localhost:5000/api/candidates/download-resume/${c._id}`}
+                  href={`https://psquare-assessment.onrender.com/api/candidates/download-resume/${c._id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
