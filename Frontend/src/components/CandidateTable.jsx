@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./candidateTable.css";
+import "./CandidateTable.css";
 
 function CandidateTable() {
   const [candidates, setCandidates] = useState([]);
