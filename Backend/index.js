@@ -24,7 +24,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://psquare-assessment.vercel.app",
     methods: ["POST", "GET", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
