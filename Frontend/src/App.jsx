@@ -9,7 +9,7 @@ import {
 import { AuthProvider } from "./context/AuthContext";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import Dashboard from "./components/dashboard";
+import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import "./App.css";
 
