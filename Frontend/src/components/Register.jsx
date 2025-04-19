@@ -32,7 +32,7 @@ function Register() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/auth/register",
+        "https://psquare-assessment.onrender.com/api/v1/auth/register",
         {
           name: formData.fullName,
           email: formData.email,
