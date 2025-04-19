@@ -28,7 +28,7 @@ function Login() {
     setError("");
 
     try {
-      const response = await axios.post("/auth/login", formData); // Use relative URL
+      const response = await axios.post("https://psquare-assessment.onrender.com/api/v1/auth/login", formData); // Use relative URL
       const { user, token } = response.data;
 
       // Call login function from context to update auth state
