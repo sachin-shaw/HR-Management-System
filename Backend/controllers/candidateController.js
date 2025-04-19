@@ -99,3 +99,23 @@ export const downloadResume = async (req, res) => {
     });
   }
 };
+
+export const deleteCandidate = async (req, res) => {
+  const { id } = req.params; // Extract candidate ID from URL parameters
+
+  try {
+    // Find and delete the candidate by ID
+    const candidate = await Candidate.findByIdAndDelete(id);
+
+    // If candidate is not found
+    if (!candidate) {
+      return res.status(404).json({ message: "Candidate not found" });
+    }
+
+    // If candidate deleted successfully
+    return res.status(200).json({ message: "Candidate deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting candidate:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
