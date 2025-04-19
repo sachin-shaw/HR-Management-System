@@ -8,7 +8,9 @@ function CandidateTable() {
   // Function to fetch candidates
   const fetchCandidates = async () => {
     try {
-      const response = await axios.get("https://psquare-assessment.onrender.com/api/candidates");
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/candidates`
+      );
       const data = response.data.data;
 
       const formatted = data.map((c, index) => ({
@@ -33,7 +35,9 @@ function CandidateTable() {
   const deleteCandidate = async (candidateId) => {
     try {
       const response = await axios.delete(
-        `https://psquare-assessment.onrender.com/api/candidates/delete-candidate/${candidateId}`
+        `${
+          import.meta.env.VITE_API_BASE_URL
+        }/candidates/delete-candidate/${candidateId}`
       );
       console.log(response.data.message); // Show success message
       // After deleting the candidate, fetch the updated candidates list
@@ -84,7 +88,9 @@ function CandidateTable() {
               </svg>
               <div className="actions-dropdown">
                 <a
-                  href={`https://psquare-assessment.onrender.com/api/candidates/download-resume/${c._id}`}
+                  href={`${
+                    import.meta.env.VITE_API_BASE_URL
+                  }/candidates/download-resume/${c._id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

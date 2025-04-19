@@ -34,7 +34,7 @@ function Register() {
 
     try {
       const response = await axios.post(
-        "https://psquare-assessment.onrender.com/api/v1/auth/register",
+        `${import.meta.env.VITE_API_BASE_URL}/v1/auth/register`,
         {
           name: formData.fullName,
           email: formData.email,
