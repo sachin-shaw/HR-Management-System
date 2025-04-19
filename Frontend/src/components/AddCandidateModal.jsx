@@ -35,7 +35,7 @@ function AddCandidateModal({ isOpen, onClose, onCandidateAdded }) {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/candidates/create",
+        "https://psquare-assessment.onrender.com/api/candidates/create",
         submissionData,
         { withCredentials: true }
       );
