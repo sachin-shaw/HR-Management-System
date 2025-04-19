@@ -51,57 +51,123 @@ export const registerController = async (req, res) => {
 };
 
 //POST LOGIN
+// export const loginController = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+//     //validation
+//     if (!email || !password) {
+//       return res.status(404).send({
+//         success: false,
+//         message: "Invalid email or password",
+//       });
+//     }
+//     //check user
+//     const user = await userModel.findOne({ email });
+//     if (!user) {
+//       return res.status(404).send({
+//         success: false,
+//         message: "Email is not registerd",
+//       });
+//     }
+//     const match = await comparePassword(password, user.password);
+//     if (!match) {
+//       return res.status(200).send({
+//         success: false,
+//         message: "Invalid Password",
+//       });
+//     }
+//     //token
+//     const token = await JWT.sign(
+//       { _id: user._id },
+//       process.env.JWT_SECRET,
+//       { expiresIn: "2h" } // HR session valid only for 2 hours
+//     );
+
+//     res.status(200).send({
+//       success: true,
+//       message: "login successfully",
+//       user: {
+//         _id: user._id,
+//         name: user.name,
+//         email: user.email,
+//         phone: user.phone,
+//         // address: user.address,
+//         // role: user.role,
+//       },
+//       token,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send({
+//       success: false,
+//       message: "Error in login",
+//       error,
+//     });
+//   }
+// };
+
 export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
-    //validation
+
+    // Validation
     if (!email || !password) {
-      return res.status(404).send({
+      return res.status(400).send({
         success: false,
-        message: "Invalid email or password",
+        message: "Email and password are required",
       });
     }
-    //check user
+
+    // Check user existence
     const user = await userModel.findOne({ email });
     if (!user) {
       return res.status(404).send({
         success: false,
-        message: "Email is not registerd",
+        message: "Email is not registered",
       });
     }
+
+    // Compare passwords
     const match = await comparePassword(password, user.password);
     if (!match) {
-      return res.status(200).send({
+      return res.status(401).send({
         success: false,
-        message: "Invalid Password",
+        message: "Invalid password",
       });
     }
-    //token
-    const token = await JWT.sign(
+
+    // Generate JWT token
+    const token = JWT.sign(
       { _id: user._id },
       process.env.JWT_SECRET,
-      { expiresIn: "2h" } // HR session valid only for 2 hours
+      { expiresIn: "2h" } // Token expires in 2 hours
     );
+
+    // Set the token in an HTTP-Only cookie for better security (instead of sending it in the response body)
+    res.cookie("token", token, {
+      httpOnly: true, // Can't be accessed via JavaScript
+      secure: process.env.NODE_ENV === "production", // Secure cookie in production (HTTPS)
+      maxAge: 2 * 60 * 60 * 1000, // 2 hours
+    });
 
     res.status(200).send({
       success: true,
-      message: "login successfully",
+      message: "Login successful",
       user: {
         _id: user._id,
         name: user.name,
         email: user.email,
         phone: user.phone,
-        // address: user.address,
-        // role: user.role,
       },
-      token,
+      token, // Optional: You can also return the token in response for convenience
+      expiresIn: "2h", // Expiration time
     });
   } catch (error) {
-    console.log(error);
+    console.error(error); // Use a logging library like 'winston' in production
     res.status(500).send({
       success: false,
-      message: "Error in login",
-      error,
+      message: "Internal server error",
+      error: error.message,
     });
   }
 };

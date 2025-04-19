@@ -4,7 +4,16 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoute.js";
+import candidateRoutes from "./routes/candidateRoutes.js";
+import employeeRoutes from "./routes/employeeRoutes.js";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+// Fix for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // config
 dotenv.config();
@@ -15,7 +24,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:3000", // change to frontend domain in production
+    origin: "http://localhost:5173",
     methods: ["POST", "GET", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
@@ -24,8 +33,16 @@ app.options("*", cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
+// Static folder for resume downloads
+app.use(
+  "/uploads/resumes",
+  express.static(path.join(__dirname, "uploads/resumes"))
+);
+
 // Routes
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/candidates", candidateRoutes);
+app.use("/api/employees", employeeRoutes);
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome</h1>");

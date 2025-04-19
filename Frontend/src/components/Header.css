@@ -1,0 +1,56 @@
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .filter-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .filter-button {
+    background: #f1f1f1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+  
+  .search-bar {
+    position: relative;
+  }
+  
+  .search-bar input {
+    padding: 8px 30px 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  
+  .search-bar svg {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+  }
+  
+  .add-candidate-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+  
