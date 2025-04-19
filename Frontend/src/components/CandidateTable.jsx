@@ -33,7 +33,7 @@ function CandidateTable() {
   const deleteCandidate = async (candidateId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/candidates/delete-candidate/${candidateId}`
+        `https://psquare-assessment.onrender.com/api/candidates/delete-candidate/${candidateId}`
       );
       console.log(response.data.message); // Show success message
       // After deleting the candidate, fetch the updated candidates list
