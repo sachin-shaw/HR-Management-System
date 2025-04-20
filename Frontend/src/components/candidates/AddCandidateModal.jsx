@@ -35,7 +35,7 @@ function AddCandidateModal({ isOpen, onClose, onCandidateAdded }) {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/candidates/create`,
+        `${import.meta.env.VITE_API_BASE_URL}/candidates/create`, // ← FIXED
         submissionData,
         { withCredentials: true }
       );
