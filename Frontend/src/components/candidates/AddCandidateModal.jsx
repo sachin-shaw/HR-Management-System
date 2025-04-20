@@ -23,31 +23,35 @@ function AddCandidateModal({ isOpen, onClose, onCandidateAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const submissionData = new FormData();
-    submissionData.append("fullName", formData.fullName);
-    submissionData.append("email", formData.email);
-    submissionData.append("phone", formData.phone);
-    submissionData.append("position", formData.position);
-    submissionData.append("experience", formData.experience);
-    if (formData.resume) {
-      submissionData.append("resume", formData.resume);
-    }
+    const data = new FormData();
+    data.append("fullName", formData.fullName);
+    data.append("email", formData.email);
+    data.append("phone", formData.phone);
+    data.append("position", formData.position);
+    data.append("experience", formData.experience);
+    data.append("resume", formData.resume); // no check: required already in form
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/candidates/create`, // ← FIXED
-        submissionData,
-        { withCredentials: true }
+        `${import.meta.env.VITE_API_BASE_URL}/candidates/create`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
       );
 
       if (res.data.success) {
-        if (typeof onCandidateAdded === "function") {
-          onCandidateAdded(); // Ensure onCandidateAdded is a function
-        }
-        onClose(); // Close modal
+        onCandidateAdded?.();
+        onClose();
+      } else {
+        alert(res.data.message || "Upload failed.");
       }
     } catch (err) {
       console.error("Upload failed:", err);
+      alert(err.response?.data?.message || "Upload failed. Check server logs.");
     }
   };
 
@@ -85,6 +89,7 @@ function AddCandidateModal({ isOpen, onClose, onCandidateAdded }) {
               />
             </div>
           </div>
+
           <div className="form-row">
             <div className="form-group">
               <label>Phone*</label>
@@ -107,6 +112,7 @@ function AddCandidateModal({ isOpen, onClose, onCandidateAdded }) {
               />
             </div>
           </div>
+
           <div className="form-row">
             <div className="form-group">
               <label>Experience*</label>
@@ -129,6 +135,7 @@ function AddCandidateModal({ isOpen, onClose, onCandidateAdded }) {
               />
             </div>
           </div>
+
           <div className="modal-footer">
             <button type="submit" className="save-button">
               Save

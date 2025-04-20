@@ -1,100 +1,128 @@
 /* Base styles */
 body {
-    margin: 0;
-    padding: 20px;
-    background-color: #f4f6f8;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-  }
-  
-  /* Table styling */
-  .data-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .data-table th,
-  .data-table td {
-    padding: 14px 16px;
-    border-bottom: 1px solid #e0e0e0;
-    text-align: left;
-  }
-  
-  .data-table th {
-    background-color: #f1f3f5;
-    font-weight: 600;
-    color: #222;
-  }
-  
-  .data-table tbody tr:hover {
-    background-color: #f9f9f9;
-  }
-  
-  /* Status badge styling */
-  .status {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-transform: capitalize;
-  }
-  
-  .status.new {
-    background-color: #d9faff;
-    color: #007bff;
-  }
-  
-  .status.selected {
-    background-color: #d4edda;
-    color: #155724;
-  }
-  
-  .status.rejected {
-    background-color: #f8d7da;
-    color: #721c24;
-  }
-  
-  /* Actions dropdown */
-  .actions {
-    position: relative;
-    cursor: pointer;
-  }
-  
-  .actions-dropdown {
-    position: absolute;
-    top: 30px;
-    left: 0;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    display: none;
-    min-width: 150px;
-    z-index: 10;
-  }
-  
-  .actions:hover .actions-dropdown {
-    display: block;
-  }
-  
-  .actions-dropdown a {
-    display: block;
-    padding: 8px 12px;
-    color: #333;
-    text-decoration: none;
-    font-size: 0.9rem;
-    border-radius: 4px;
-  }
-  
-  .actions-dropdown a:hover {
-    background-color: #f1f1f1;
-  }
-  
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f6f8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Add a gap between the table and the "Add Candidate" button */
+.candidate-table-container {
+  margin-bottom: 30px; /* Adds a gap before the table */
+}
+
+/* Button styling */
+.add-candidate-btn {
+  background-color: #6a0dad;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-bottom: 20px; /* Adds a gap below the button */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-candidate-btn:hover {
+  background-color: #7b1fa2; /* Darker purple on hover */
+}
+
+/* Purple background around the table box */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #6a0dad; /* Purple background for the box */
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #fff; /* Default font color inside the table */
+}
+
+/* Table headers and cells */
+.data-table th,
+.data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #8f57e4; /* Light border on purple */
+  text-align: left;
+  background-color: #6a0dad; /* Keep rows purple too */
+}
+
+/* Header styling */
+.data-table th {
+  background-color: #7b1fa2; /* Darker purple for header */
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Row hover effect */
+.data-table tbody tr:hover {
+  background-color: #854cc9; /* Lighter hover on purple */
+}
+
+/* "No candidates found" message centered and white */
+.data-table td[colspan="8"] {
+  text-align: center;
+  color: #fff;
+}
+
+/* Status dropdowns */
+.status-dropdown {
+  background-color: #fff;
+  color: #000;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+/* Status styles */
+.status.new {
+  background-color: #d9faff;
+  color: #007bff;
+}
+
+.status.selected {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status.rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Actions dropdown */
+.actions {
+  position: relative;
+  cursor: pointer;
+}
+
+.actions-dropdown {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: none;
+  min-width: 150px;
+  z-index: 10;
+}
+
+.actions:hover .actions-dropdown {
+  display: block;
+}
+
+.actions-dropdown a {
+  display: block;
+  padding: 8px 12px;
+  color: #333;
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-radius: 4px;
+}
+
+.actions-dropdown a:hover {
+  background-color: #f1f1f1;
+}

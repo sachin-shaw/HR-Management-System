@@ -4,8 +4,8 @@ import "./CandidateTable.css";
 
 function CandidateTable({ searchTerm, refreshFlag }) {
   const [candidates, setCandidates] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(null); // Track which row's dropdown is open
 
-  // Function to fetch candidates
   const fetchCandidates = async () => {
     try {
       const response = await axios.get(
@@ -31,16 +31,13 @@ function CandidateTable({ searchTerm, refreshFlag }) {
     }
   };
 
-  // Function to delete a candidate
   const deleteCandidate = async (candidateId) => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `${
           import.meta.env.VITE_API_BASE_URL
         }/candidates/delete-candidate/${candidateId}`
       );
-      console.log(response.data.message); // Show success message
-      // After deleting the candidate, fetch the updated candidates list
       fetchCandidates();
     } catch (error) {
       console.error("Failed to delete candidate:", error);
@@ -50,7 +47,6 @@ function CandidateTable({ searchTerm, refreshFlag }) {
   const handleStatusChange = async (candidate, newStatus) => {
     try {
       if (newStatus === "selected") {
-        // Add candidate to employee table
         await axios.post(`${import.meta.env.VITE_API_BASE_URL}/employees`, {
           fullName: candidate.name,
           email: candidate.email,
@@ -59,10 +55,8 @@ function CandidateTable({ searchTerm, refreshFlag }) {
           experience: candidate.experience,
         });
 
-        // Delete candidate from candidate table
         await deleteCandidate(candidate._id);
       } else {
-        // Optional: update status if your backend supports PATCH/PUT
         await axios.patch(
           `${import.meta.env.VITE_API_BASE_URL}/candidates/update-status/${
             candidate._id
@@ -71,18 +65,21 @@ function CandidateTable({ searchTerm, refreshFlag }) {
             status: newStatus,
           }
         );
-        fetchCandidates(); // Refresh
+        fetchCandidates();
       }
     } catch (error) {
       console.error("Status update failed:", error);
     }
   };
 
+  const handleDropdownClick = (id) => {
+    setShowDropdown(showDropdown === id ? null : id); // Toggle the dropdown for the clicked row
+  };
+
   useEffect(() => {
-    fetchCandidates(); // Fetch candidates when the component mounts
+    fetchCandidates();
   }, [refreshFlag]);
 
-  // Filter candidates based on search term
   const filteredCandidates = candidates.filter(
     (candidate) =>
       candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -133,22 +130,34 @@ function CandidateTable({ searchTerm, refreshFlag }) {
               </td>
               <td>{c.experience}</td>
               <td className="actions">
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path d="M12 16a2 2 0 01-2 2..." />
-                </svg>
-                <div className="actions-dropdown">
-                  <a
-                    href={`${
-                      import.meta.env.VITE_API_BASE_URL
-                    }/candidates/download-resume/${c._id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <div className="action-wrapper">
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    onClick={() => handleDropdownClick(c.id)} // Toggle dropdown on click
+                    style={{ cursor: "pointer" }}
                   >
-                    Download Resume
-                  </a>
-                  <a href="#" onClick={() => deleteCandidate(c._id)}>
-                    Delete Candidate
-                  </a>
+                    <circle cx="5" cy="12" r="2" fill="#fff" />
+                    <circle cx="12" cy="12" r="2" fill="#fff" />
+                    <circle cx="19" cy="12" r="2" fill="#fff" />
+                  </svg>
+                  {showDropdown === c.id && ( // Only show dropdown if this row's ID matches the selected one
+                    <div className="actions-dropdown">
+                      <a
+                        href={`${
+                          import.meta.env.VITE_API_BASE_URL
+                        }/candidates/download-resume/${c._id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Download Resume
+                      </a>
+                      <a href="#" onClick={() => deleteCandidate(c._id)}>
+                        Delete Candidate
+                      </a>
+                    </div>
+                  )}
                 </div>
               </td>
             </tr>
