@@ -415,7 +415,6 @@ Uploaded resumes are saved temporarily in:
 
 ## 🧑‍💻 Contributors
 
-- Backend & API Design – [Sachin Shaw](https://github.com/sachin-shaw)
 
 ---
 
@@ -445,3 +444,7 @@ Here are some additional enhancements that could improve the project:
 - ⏳ **Attendance Analytics:** Provide visual analytics (charts/graphs) for attendance trends.
 
 These enhancements can be prioritized based on project requirements and user feedback.
+
+📝 License
+This project is licensed under the MIT License.
+Copyright (c) 2025 Sachin Shaw
