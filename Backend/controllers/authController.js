@@ -50,6 +50,20 @@ export const registerController = async (req, res) => {
   }
 };
 
+export const profileController = async (req, res) => {
+  try {
+    // Assuming req.user is populated by the JWT verification middleware
+    const user = await User.findById(req.user.id).select("-password"); // Exclude password from response
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json({ user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 //POST LOGIN
 // export const loginController = async (req, res) => {
 //   try {

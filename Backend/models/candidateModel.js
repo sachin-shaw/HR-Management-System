@@ -9,6 +9,11 @@ const candidateSchema = new mongoose.Schema(
     position: { type: String, required: true },
     experience: { type: Number, required: true },
     resumeUrl: { type: String, required: true },
+    status: {
+      type: String,
+      enum: ["new", "interview", "selected"],
+      default: "new",
+    },
   },
   { timestamps: true }
 );

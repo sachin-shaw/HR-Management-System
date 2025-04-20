@@ -1,15 +1,17 @@
+// Sidebar.jsx
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // Import useAuth hook
+import { useAuth } from "../context/AuthContext";
 import "./Sidebar.css";
 
-function Sidebar() {
+function Sidebar({ setCurrentTable }) {
   const { logout } = useAuth(); // Access logout function from context
-  const navigate = useNavigate(); // For redirecting after logout
 
   const handleLogout = () => {
     logout(); // Call logout function from context
-    navigate("/login"); // Redirect to login page after logout
+  };
+
+  const handleTableSwitch = (table) => {
+    setCurrentTable(table); // Update the current table state
   };
 
   return (
@@ -24,19 +26,35 @@ function Sidebar() {
       <nav className="main-navigation">
         <ul>
           <li>
-            <a href="#">Recruitment</a>
+            <a href="#" onClick={() => handleTableSwitch("recruitment")}>
+              Recruitment
+            </a>
           </li>
           <li className="active">
-            <a href="#">Candidates</a>
+            <a href="#" onClick={() => handleTableSwitch("candidates")}>
+              Candidates
+            </a>
           </li>
           <li>
-            <a href="#">Organization</a>
+            <a href="#" onClick={() => handleTableSwitch("organization")}>
+              Organization
+            </a>
           </li>
           <li>
-            <a href="#">Employees</a>
+            <button
+              onClick={() => handleTableSwitch("employees")}
+              className="nav-button"
+            >
+              Employees
+            </button>
           </li>
           <li>
-            <a href="#">Attendance</a>
+            <button
+              onClick={() => handleTableSwitch("attendance")}
+              className="nav-button"
+            >
+              Attendance
+            </button>
           </li>
           <li>
             <a href="#">Leaves</a>
@@ -48,8 +66,7 @@ function Sidebar() {
           <li>
             <a href="#" onClick={handleLogout}>
               Logout
-            </a>{" "}
-            {/* Add onClick handler */}
+            </a>
           </li>
         </ul>
       </nav>

@@ -14,6 +14,19 @@
     align-items: center;
     margin-bottom: 30px;
   }
+
+  .nav-button {
+    all: unset; /* remove default button styling */
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 12px;
+  }
+  .nav-button:hover {
+    background-color: #f0f0f0;
+  }
+  
   
   .logo-placeholder {
     width: 30px;

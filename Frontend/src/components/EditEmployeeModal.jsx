@@ -1,53 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./AddCandidateModal.css";
 
-function AddCandidateModal({ isOpen, onClose, onCandidateAdded }) {
+function EditEmployeeModal({ isOpen, onClose, employee, onUpdate }) {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
     position: "",
     experience: "",
-    resume: null,
   });
 
+  useEffect(() => {
+    if (employee) {
+      setFormData({
+        fullName: employee.fullName || "",
+        email: employee.email || "",
+        phone: employee.phone || "",
+        position: employee.position || "",
+        experience: employee.experience || "",
+      });
+    }
+  }, [employee]);
+
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: files ? files[0] : value,
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const submissionData = new FormData();
-    submissionData.append("fullName", formData.fullName);
-    submissionData.append("email", formData.email);
-    submissionData.append("phone", formData.phone);
-    submissionData.append("position", formData.position);
-    submissionData.append("experience", formData.experience);
-    if (formData.resume) {
-      submissionData.append("resume", formData.resume);
-    }
-
     try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/candidates/create`,
-        submissionData,
-        { withCredentials: true }
+      await axios.put(
+        `${import.meta.env.VITE_API_BASE_URL}/employees/update-status/${
+          employee._id
+        }`,
+        formData
       );
-
-      if (res.data.success) {
-        if (typeof onCandidateAdded === "function") {
-          onCandidateAdded(); // Ensure onCandidateAdded is a function
-        }
-        onClose(); // Close modal
-      }
+      onUpdate(); // Refresh employee list
+      onClose();
     } catch (err) {
-      console.error("Upload failed:", err);
+      console.error("Update failed:", err);
     }
   };
 
@@ -57,7 +53,7 @@ function AddCandidateModal({ isOpen, onClose, onCandidateAdded }) {
     <div className="modal-overlay">
       <div className="modal-content">
         <div className="modal-header">
-          <h2>Add New Candidate</h2>
+          <h2>Edit Employee</h2>
           <button className="close-button" onClick={onClose}>
             X
           </button>
@@ -118,20 +114,10 @@ function AddCandidateModal({ isOpen, onClose, onCandidateAdded }) {
                 required
               />
             </div>
-            <div className="form-group">
-              <label>Resume*</label>
-              <input
-                type="file"
-                name="resume"
-                accept=".pdf,.doc,.docx"
-                onChange={handleChange}
-                required
-              />
-            </div>
           </div>
           <div className="modal-footer">
             <button type="submit" className="save-button">
-              Save
+              Update
             </button>
           </div>
         </form>
@@ -140,4 +126,4 @@ function AddCandidateModal({ isOpen, onClose, onCandidateAdded }) {
   );
 }
 
-export default AddCandidateModal;
+export default EditEmployeeModal;

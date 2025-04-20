@@ -4,6 +4,7 @@ import {
   loginController,
   testController,
   contactUsController,
+  profileController,
 } from "../controllers/authController.js";
 import { requireSignIn } from "../middlewares/authMiddleware.js";
 
@@ -26,5 +27,7 @@ router.get("/test", requireSignIn, testController);
 router.get("/user-auth", requireSignIn, (req, res) => {
   res.status(200).send({ ok: true });
 });
+
+router.get("/profile", requireSignIn, profileController);
 
 export default router;

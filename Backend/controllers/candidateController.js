@@ -119,3 +119,28 @@ export const deleteCandidate = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+export const updateCandidateStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const updatedCandidate = await Candidate.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true } // returns the updated document
+    );
+
+    if (!updatedCandidate) {
+      return res.status(404).json({ message: "Candidate not found" });
+    }
+
+    res.status(200).json({
+      message: "Candidate status updated successfully",
+      candidate: updatedCandidate,
+    });
+  } catch (error) {
+    console.error("Error updating candidate status:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};

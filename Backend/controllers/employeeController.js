@@ -1,44 +1,67 @@
-import Candidate from "../models/candidateModel.js";
+import Employee from "../models/employeeModel.js";
 
-//import Employee from "../models/Employee.js";
-
-//   Update employee position
-// @route   PUT /api/employees/:id
-export const updateEmployee = async (req, res) => {
+// Add new employee
+export const addEmployee = async (req, res) => {
   try {
-    const employeeId = req.params.id;
-    const { position } = req.body;
+    const { fullName, email, phone, position, experience } = req.body;
 
-    if (!position) {
-      return res.status(400).json({
-        success: false,
-        message: "Position is required to update",
-      });
-    }
+    const newEmployee = new Employee({
+      fullName,
+      email,
+      phone,
+      position,
+      experience,
+    });
 
-    const updatedEmployee = await Candidate.findByIdAndUpdate(
-      candidateId,
-      { position },
-      { new: true, runValidators: true }
-    );
+    await newEmployee.save();
+    res.status(201).json({ message: "Employee added successfully" });
+  } catch (error) {
+    console.error("Error adding employee:", error);
+    res.status(500).json({ message: "Server error while adding employee" });
+  }
+};
+
+// (Optional) Get all employees
+export const getAllEmployees = async (req, res) => {
+  try {
+    const employees = await Employee.find();
+    res.json(employees);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const updateEmployeeStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedData = req.body;
+
+    const updatedEmployee = await Employee.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
 
     if (!updatedEmployee) {
-      return res.status(404).json({
-        success: false,
-        message: "Employee not found",
-      });
+      return res.status(404).json({ message: "Employee not found" });
     }
 
-    res.status(200).json({
-      success: true,
-      message: "Employee position updated successfully",
-      data: updatedEmployee,
-    });
+    res.status(200).json(updatedEmployee);
   } catch (error) {
-    console.error("Error updating position:", error.message);
-    res.status(500).json({
-      success: false,
-      message: "Server error while updating employee position",
-    });
+    res.status(500).json({ message: "Failed to update employee", error });
+  }
+};
+
+export const deleteEmployee = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedEmployee = await Employee.findByIdAndDelete(id);
+
+    if (!deletedEmployee) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+
+    res.status(200).json({ message: "Employee deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete employee", error });
   }
 };
