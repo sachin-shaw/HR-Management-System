@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./CandidateTable.css";
+import "../candidates/CandidateTable.css";
 import EditEmployeeModal from "./EditEmployeeModal"; // new modal component
 
 function EmployeeTable() {

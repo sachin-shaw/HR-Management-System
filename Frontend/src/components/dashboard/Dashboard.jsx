@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
-import CandidateTable from "./CandidateTable";
-import EmployeeTable from "./EmployeeTable";
-import AttendanceTable from "./AttendanceTable";
-import UserProfile from "./UserProfile";
-import NotificationButton from "./NotificationButton";
-import AddCandidateModal from "./AddCandidateModal";
+import Sidebar from "../layout/Sidebar";
+import Header from "../layout/Header";
+import CandidateTable from "../candidates/CandidateTable";
+import EmployeeTable from "../employees/EmployeeTable";
+import AttendanceTable from "../attendance/AttendanceTable";
+import UserProfile from "../layout/UserProfile";
+import NotificationButton from "../layout/NotificationButton";
+import AddCandidateModal from "../candidates/AddCandidateModal";
 
 import "./Dashboard.css";
 

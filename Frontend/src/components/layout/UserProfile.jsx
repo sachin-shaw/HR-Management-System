@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../context/AuthContext"; // Import useAuth hook
+import { useAuth } from "../../context/AuthContext"; // Import useAuth hook
 import "./UserProfile.css";
 
 function UserProfile() {

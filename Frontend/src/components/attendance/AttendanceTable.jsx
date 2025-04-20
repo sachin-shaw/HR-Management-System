@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./CandidateTable.css"; // Reusing styles from CandidateTable
+import "../candidates/CandidateTable.css"; // Reusing styles from CandidateTable
 
 const AttendanceTable = () => {
   const [employees, setEmployees] = useState([]);

@@ -1,8 +1,8 @@
 import React from "react";
-import StatusFilter from "./StatusFilter";
-import PositionFilter from "./PositionFilter";
-import SearchInput from "./SearchInput";
-import AddCandidateButton from "./AddCandidateButton";
+import StatusFilter from "../shared/StatusFilter";
+import PositionFilter from "../shared/PositionFilter";
+import SearchInput from "../shared/SearchInput";
+import AddCandidateButton from "../shared/AddCandidateButton";
 
 const Header = ({
   currentPage,

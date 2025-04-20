@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom"; // ✅ Added
 import "./Login.css";
-import dashboardImage from "../assets/Rectangle77.png";
+import dashboardImage from "../../assets/Rectangle77.png";
 import axios from "axios";
 
 function Register() {

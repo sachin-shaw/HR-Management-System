@@ -1,6 +1,6 @@
 // Sidebar.jsx
 import React from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import "./Sidebar.css";
 
 function Sidebar({ setCurrentTable }) {

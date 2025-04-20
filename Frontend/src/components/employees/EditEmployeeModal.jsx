@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./AddCandidateModal.css";
+import "../candidates/AddCandidateModal.css";
 
 function EditEmployeeModal({ isOpen, onClose, employee, onUpdate }) {
   const [formData, setFormData] = useState({

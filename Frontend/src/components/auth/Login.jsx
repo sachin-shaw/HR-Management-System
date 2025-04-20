@@ -1,9 +1,9 @@
 // src/components/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import "./Login.css";
-import dashboardImage from "../assets/Rectangle77.png";
+import dashboardImage from "../../assets/Rectangle77.png";
 import axios from "axios"; // Import the configured axios
 
 function Login() {

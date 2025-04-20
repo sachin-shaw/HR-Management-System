@@ -8,18 +8,17 @@ import {
 import axios from "axios";
 
 import { AuthProvider, useAuth } from "./context/AuthContext";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Dashboard from "./components/Dashboard";
-import EmployeeTable from "./components/EmployeeTable";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import Dashboard from "./components/dashboard/Dashboard";
+import EmployeeTable from "./components/employees/EmployeeTable";
 import PrivateRoute from "./components/PrivateRoute";
 
 import "./App.css";
 
 // Axios default configuration
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api/v1";
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const AppRoutes = () => {
   const { loading } = useAuth();
