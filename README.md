@@ -1,4 +1,4 @@
-# 🧠 Psquare Assessment – Candidate & Employee Management System
+# 🧠 Candidate & Employee Management System
 
 This is a full-stack MERN (MongoDB, Express, React, Node.js) web application developed as part of the Psquare assessment. It provides a complete platform to manage candidate resumes, transition selected candidates into employees, and track attendance records — all within an intuitive dashboard.
 
